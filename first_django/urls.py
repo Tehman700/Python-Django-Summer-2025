@@ -1,21 +1,10 @@
 from django.contrib import admin
-from django.urls import path
-from django.http import HttpResponse
+from django.urls import path, include
 
-
-
-
-def home(request):
-    return HttpResponse('Home PA atsjhgasdgge')
-
-
-def rooms(request):
-    return HttpResponse("This is the ROOM")
 
 
 # URL ROUTING FILES
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tehman/', home),
-    path('room/', rooms)
+    path('', include('base.urls'))
 ]
