@@ -72,5 +72,16 @@
     </div>
   </div>
 
+  <div>
+    <h1>Room List</h1>
+        <ul>
+        {% for room in i %}
+            <li>{{ room.description }}</li>
+        {% empty %}
+            <li>No rooms found.</li>
+        {% endfor %}
+    </ul>
+  </div>
+
 </body>
 </html>

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Room
 
 
 
@@ -20,4 +21,5 @@ def home(request):
     return render(request, 'home.html')
 
 def rooms(request):
-    return render(request, 'rooms.html')
+    rooms_var = Room.objects.all()
+    return render(request, 'rooms.html', {'i' :rooms_var})
