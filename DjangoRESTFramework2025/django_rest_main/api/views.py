@@ -1,16 +1,38 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from students.models import *
+from .serializers import *
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+
+
+
 
 # Create your views here.
 
 
-def studentsView(request):
-    students_data = [
-        {
-            'id' : 1,
-            'name' : "Tehman Hassan",
-            'batch' : 2023
-        }
-    ]
+# def studentsView(request):
 
-    return JsonResponse(students_data, safe=False)
+#     # Now we will query into the database
+#     # Now we wull use manually serialize
+#     students_data = Student.objects.all()
+
+#     final = list(students_data.values())
+
+#     return JsonResponse(final, safe= False)
+
+
+
+
+@api_view(['GET'])
+def studentsView(request):
+
+    if request.method == 'GET':
+        # We will get all the data from students table
+
+
+        students = Student.objects.all()
+        serializer = StudentSerializer(students, many =True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
