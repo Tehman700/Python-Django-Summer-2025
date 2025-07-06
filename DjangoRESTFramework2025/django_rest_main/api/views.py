@@ -47,3 +47,20 @@ def studentsView(request):
         
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
 
+
+
+
+
+
+@api_view(['GET'])
+def fathersView(request):
+
+    if request.method == 'GET':
+        # We will get all the data from students table
+
+
+        father = Father.objects.all()
+        serializer = FatherSerializer(father, many =True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
