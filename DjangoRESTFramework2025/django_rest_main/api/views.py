@@ -13,4 +13,4 @@ def studentsView(request):
         }
     ]
 
-    return JsonResponse(students_data)
+    return JsonResponse(students_data, safe=False)
