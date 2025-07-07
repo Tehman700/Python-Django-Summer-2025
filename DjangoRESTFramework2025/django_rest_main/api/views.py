@@ -64,3 +64,30 @@ def fathersView(request):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+
+
+
+@api_view(['GET'])
+def particularstudentView(request, pk):
+    # if request.method == 'GET':
+    #     partic = Student.objects.get(pk = pk)
+    #     print(partic)
+    #     if partic != "":
+    #         serializer = StudentSerializer(partic)
+    #         return Response(serializer.data, status = status.HTTP_302_FOUND)
+    #     else:
+    #         return Response(serializers.errors, status = status.HTTP_404_NOT_FOUND)
+    
+
+
+
+    try:
+        partic = Student.objects.get(pk=pk)
+
+    except Student.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializ = StudentSerializer(partic)
+        return Response (serializ.data, status = status.HTTP_200_OK)
