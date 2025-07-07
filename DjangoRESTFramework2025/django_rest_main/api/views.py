@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from students.models import *
+from employees.models import Employee as EmployeeModel
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-
+from rest_framework.views import APIView
 
 
 
@@ -68,7 +69,7 @@ def fathersView(request):
 
 
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def particularstudentView(request, pk):
     # if request.method == 'GET':
     #     partic = Student.objects.get(pk = pk)
@@ -91,3 +92,36 @@ def particularstudentView(request, pk):
     if request.method == 'GET':
         serializ = StudentSerializer(partic)
         return Response (serializ.data, status = status.HTTP_200_OK)
+    
+    elif request.method == 'PUT':
+        serializer = StudentSerializer(partic, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+    
+        else:
+            return Response(serializers.errors , status = status.HTTP_400_BAD_REQUEST)
+
+
+
+    elif request.method == 'DELETE':
+        partic.delete()
+        return Response(status =  status.HTTP_204_NO_CONTENT)
+    
+
+
+
+
+
+
+
+
+
+# BELOW WILL BE THE CLASS BASED VIEW FOR THE EMPLOYEE MODEL
+
+class Employee(APIView):
+    def get(self, request):
+        employees = EmployeeModel.objects.all()
+        serializer = EmployeeSerializer(employees, many =True)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+
