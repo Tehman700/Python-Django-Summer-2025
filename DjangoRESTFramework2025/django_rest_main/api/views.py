@@ -188,7 +188,7 @@ def particularstudentView(request, pk):
 
 
 
-
+"""""
 # BELOW IS THE METHOD FOR MIXINS IN CLASS BASED VIEWS
 
 class Employee(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
@@ -217,4 +217,39 @@ class ParticularEmployeeDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixi
     def delete(self, request, pk):
         return self.destroy(request,pk)
     
+"""""
 
+
+
+
+# Now we are using Generics for most short code
+""""
+    Generics are like this:
+    ListAPIView    -  for listing the objects
+    CreateAPIView  -  for creating the objects
+    RetrieveAPIView - for retrieving a single object using pk
+    UpdateAPIView  -  for updating a single object using pk
+    DestroyAPIView -  for deleting an object using pk
+
+    COMBINATION ALSO WORKS:
+
+    ListCreateAPIView  - For listing and creating objects
+    RetrieveUpdateAPIView  -  For retreiving and updating objects using pk
+    RetrieveUpdateDestroyAPIView  - For listing, Updating and Destroying any object using pk
+
+    
+"""
+
+
+
+
+
+
+
+class Employee(generics.ListAPIView, generics.CreateAPIView):
+    queryset = EmployeeModel.objects.all()
+    serializer_class = EmployeeSerializer
+
+
+class ParticularEmployeeDetail(generics.RetrieveAPIView):
+    pass
