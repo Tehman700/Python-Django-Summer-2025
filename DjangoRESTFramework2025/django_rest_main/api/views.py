@@ -9,6 +9,8 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import mixins, generics
+from blogs.models import *
+from blogs.serializers import *
 
 
 
@@ -246,10 +248,42 @@ class ParticularEmployeeDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixi
 
 
 
-class Employee(generics.ListAPIView, generics.CreateAPIView):
+class Employee(generics.ListCreateAPIView):
     queryset = EmployeeModel.objects.all()
     serializer_class = EmployeeSerializer
 
 
-class ParticularEmployeeDetail(generics.RetrieveAPIView):
-    pass
+class ParticularEmployeeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = EmployeeModel.objects.all()
+    serializer_class = EmployeeSerializer
+    lookup_field = 'pk'
+
+
+
+
+
+
+
+class BlogsView(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class CommentsView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+
+class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'pk'
+
+class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    lookup_field = 'pk'
+
+
+    
+
