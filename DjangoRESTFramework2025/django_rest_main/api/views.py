@@ -285,5 +285,14 @@ class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'pk'
 
 
-    
 
+
+
+
+
+# Pagination is the breakage of views for the users so that the response size is increased
+
+#  /blogs/?page=10
+#  /blogs/?limit=10&offset=0
+#  If offset is 0 then first 10 blogs like item 1-10
+#  If offset is 10 you get next 10 blogs like item 11-20 etc8-
